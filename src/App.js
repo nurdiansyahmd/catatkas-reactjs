@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Stocklist from "./components/Stocklist";
 import AddStock from "./components/AddStock";
+import Editstock from "./components/EditStock";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/stocks" element={<Stocklist/>} /> 
           <Route path="/addstock" element={<AddStock/>} /> 
+          <Route path="/editstock/:id" element={<Editstock/>} /> 
         </Routes>
       </BrowserRouter>
     </div>

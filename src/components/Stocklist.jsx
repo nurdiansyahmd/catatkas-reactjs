@@ -27,6 +27,7 @@ const Stocklist = () => {
 
   return (
     <div className="container mt-5">
+      <Link to={`/addstock`}><Button className="mb-2" variant="primary">Add Stock</Button></Link>
             <Table striped bordered hover>
             <thead>
               <tr>
