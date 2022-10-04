@@ -15,6 +15,7 @@ const EditStock = () => {
 
     useEffect(()=>{
         getStockById()
+        // eslint-disable-next-line
     },[])
 
     const getStockById = async() => {

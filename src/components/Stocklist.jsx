@@ -1,20 +1,19 @@
 import React,{useState, useEffect} from "react"
 import axios from "axios"
-import {Table, Button} from "react-bootstrap"
+import {Table, Button, Form} from "react-bootstrap"
 import { Link } from "react-router-dom"
+
 
 const Stocklist = () => {
     const [stocks, setStocks] = useState([])
 
-    //panggil fungsi getStocks kedalam useEffect hook
     useEffect(()=>{
         getStocks();
-    },[]) //tambahkan empty array agar nanti useEffect running pada saat onMounted
+    },[])
 
-    //bikin fungsi untuk mengambil semua data stock dari backend
     const getStocks = async() => {
         const response = await axios.get('http://localhost:5000/stocks')
-        setStocks(response.data) //masukan response kedalam state
+        setStocks(response.data)
     }  
     const deleteStock = async(stockId) => {
       try {
@@ -27,7 +26,17 @@ const Stocklist = () => {
 
   return (
     <div className="container mt-5">
-      <Link to={`/addstock`}><Button className="mb-2" variant="primary">Add Stock</Button></Link>
+        <Link to={`/addstock`}><Button variant="primary" className="d-flex mb-3" style={{float:"left"}}>Add</Button></Link>
+            <Form className="d-flex" style={{float:"right"}}>
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+
             <Table striped bordered hover>
             <thead>
               <tr>
