@@ -1,3 +1,7 @@
 .input-width{
     width: 30% !important;
 }
+
+nav a{
+    margin-right: 16px;
+}

@@ -26,7 +26,9 @@ const Stocklist = () => {
 
   return (
     <div className="container mt-5">
-        <Link to={`/addstock`}><Button variant="primary" className="d-flex mb-3" style={{float:"left"}}>Add</Button></Link>
+        <Link to={`/addstock`}>
+          <Button variant="primary" className="d-flex mb-3" style={{float:"left"}}>Add Item</Button>
+        </Link>
             <Form className="d-flex" style={{float:"right"}}>
               <Form.Control
                 type="search"
@@ -37,7 +39,7 @@ const Stocklist = () => {
               <Button variant="outline-success">Search</Button>
             </Form>
 
-            <Table striped bordered hover>
+            <Table striped bordered hover className="text-center">
             <thead>
               <tr>
                 <th>No</th>

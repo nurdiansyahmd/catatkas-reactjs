@@ -1,31 +1,16 @@
-import React,{useState, useEffect} from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import {Button, Figure, Form,InputGroup} from 'react-bootstrap'
-import './css/style.css'
+import '../css/style.css'
 
-const EditStock = () => {
+const AddStock = () => {
     const [productname, setProductname] = useState("")
     const [sellprice, setSellPrice] = useState("")
     const [quantity, setQuantity] = useState("")
     const [preview, setPreview] = useState("")
     const [file, setFile] = useState("")
-    const {id} = useParams()
     const navigate = useNavigate()
-
-    useEffect(()=>{
-        getStockById()
-        // eslint-disable-next-line
-    },[])
-
-    const getStockById = async() => {
-        const response = await axios.get(`http://localhost:5000/stocks/${id}`)
-        setProductname(response.data.productname)
-        setSellPrice(response.data.sellprice)
-        setQuantity(response.data.quantity)
-        setFile(response.data.image)
-        setPreview(response.data.url)
-    }
 
     const loadImage = (e) => {
         const image = e.target.files[0]
@@ -33,7 +18,7 @@ const EditStock = () => {
         setPreview(URL.createObjectURL(image))
     }
 
-    const updateStock = async(e) => {
+    const saveStock = async(e) => {
         e.preventDefault()
 
         const formData = new FormData()
@@ -43,11 +28,11 @@ const EditStock = () => {
         formData.append('file',file)
         
         try {
-            await axios.patch(`http://localhost:5000/stocks/${id}`, formData,{
+            await axios.post("http://localhost:5000/stocks", formData,{
                 headers:{
                     "content-type" : "multipart/form-data"
                 }
-            }) 
+            })
             navigate("/stocks")
         } catch (error) {
             console.log(error);
@@ -56,11 +41,10 @@ const EditStock = () => {
     
   return (
     <div className="container mt-5">
-        <Form onSubmit={updateStock}>
+        <Form onSubmit={saveStock}>
             <Form.Group className="mb-3">
                 <Form.Label>Product Name</Form.Label>
-                <Form.Control value={productname} 
-                    onChange={(e)=> setProductname(e.target.value)} className="input-width"/>
+                <Form.Control value={productname} onChange={(e)=> setProductname(e.target.value)} className="input-width"/>
             </Form.Group>
 
             <Form.Label>Sell Price</Form.Label>
@@ -92,10 +76,10 @@ const EditStock = () => {
             ) : ("")}
             </Form.Group>
 
-           <Button className='mt-2' variant="primary" type='submit'>Update</Button>
+           <Button className='mt-2' variant="primary" type='submit'>Submit</Button>
         </Form>
     </div>
   )
 }
 
-export default EditStock
+export default AddStock
