@@ -9,6 +9,7 @@ const Stocklist = () => {
 
     useEffect(()=>{
         getStocks();
+        getCounts();
     },[])
 
     const getStocks = async() => {
@@ -21,6 +22,16 @@ const Stocklist = () => {
         getStocks();
       } catch (error) {
         console.log(error);
+      }
+    }
+
+    const getCounts = async() => {
+      const resCount = await axios.get(`http://localhost:5000/stocks/8`);
+      const results = resCount.data.quantity;
+      if(results < 2){
+        console.log("Product",resCount.data.productname,"Hampir habis! Tersisa", resCount.data.quantity, "pcs");
+      }else{
+        console.log("stok aman");
       }
     }
 
